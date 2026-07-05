@@ -1,8 +1,12 @@
 type StartMenuProps = {
   isOpen: boolean;
+  onOpenTerminal: () => void;
 };
 
-export default function StartMenu({ isOpen }: StartMenuProps) {
+export default function StartMenu({
+  isOpen,
+  onOpenTerminal,
+}: StartMenuProps) {
   if (!isOpen) return null;
 
   return (
@@ -30,7 +34,13 @@ export default function StartMenu({ isOpen }: StartMenuProps) {
         Terminal WebOS
       </h3>
 
-      <div style={{ padding: "8px 0", cursor: "pointer" }}>
+      <div
+        onClick={onOpenTerminal}
+        style={{
+          padding: "8px 0",
+          cursor: "pointer",
+        }}
+      >
         🖥️ Terminal
       </div>
 
@@ -42,7 +52,13 @@ export default function StartMenu({ isOpen }: StartMenuProps) {
         ⚙️ Settings
       </div>
 
-      <div style={{ padding: "8px 0", cursor: "pointer", color: "#ff5555" }}>
+      <div
+        style={{
+          padding: "8px 0",
+          cursor: "pointer",
+          color: "#ff5555",
+        }}
+      >
         🚪 Logout
       </div>
     </div>
