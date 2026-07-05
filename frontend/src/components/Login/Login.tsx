@@ -1,4 +1,13 @@
+import { useState } from "react";
+import Desktop from "../Desktop/Desktop";
+
 export default function Login() {
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  if (loggedIn) {
+    return <Desktop />;
+  }
+
   return (
     <div
       style={{
@@ -54,6 +63,7 @@ export default function Login() {
           />
 
           <button
+            onClick={() => setLoggedIn(true)}
             style={{
               width: "100%",
               padding: "10px",
