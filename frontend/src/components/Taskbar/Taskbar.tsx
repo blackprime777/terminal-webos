@@ -1,7 +1,11 @@
 import { useState } from "react";
 import StartMenu from "./StartMenu";
 
-export default function Taskbar() {
+type TaskbarProps = {
+  onOpenTerminal: () => void;
+};
+
+export default function Taskbar({ onOpenTerminal }: TaskbarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const currentTime = new Date().toLocaleTimeString([], {
@@ -11,7 +15,13 @@ export default function Taskbar() {
 
   return (
     <>
-      <StartMenu isOpen={menuOpen} />
+      <StartMenu
+        isOpen={menuOpen}
+        onOpenTerminal={() => {
+          onOpenTerminal();
+          setMenuOpen(false);
+        }}
+      />
 
       <div
         style={{
