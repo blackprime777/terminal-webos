@@ -1,6 +1,10 @@
+import { useState } from "react";
 import Taskbar from "../Taskbar/Taskbar";
+import Terminal from "../Terminal/Terminal";
 
 export default function Desktop() {
+  const [terminalOpen, setTerminalOpen] = useState(false);
+
   return (
     <div
       style={{
@@ -11,6 +15,7 @@ export default function Desktop() {
         fontFamily: "monospace",
         display: "flex",
         flexDirection: "column",
+        position: "relative",
       }}
     >
       {/* Top Bar */}
@@ -41,8 +46,25 @@ export default function Desktop() {
         Welcome to Terminal WebOS
       </div>
 
+      {/* Applications */}
+      {terminalOpen && <Terminal />}
+
       {/* Bottom Taskbar */}
       <Taskbar />
+
+      {/* Temporary button for testing */}
+      <button
+        onClick={() => setTerminalOpen(true)}
+        style={{
+          position: "absolute",
+          top: "60px",
+          right: "20px",
+          padding: "8px 12px",
+          cursor: "pointer",
+        }}
+      >
+        Open Terminal
+      </button>
     </div>
   );
 }
