@@ -1,3 +1,5 @@
+import Taskbar from "../Taskbar/Taskbar";
+
 export default function Desktop() {
   return (
     <div
@@ -11,7 +13,7 @@ export default function Desktop() {
         flexDirection: "column",
       }}
     >
-      {/* Header */}
+      {/* Top Bar */}
       <div
         style={{
           height: "45px",
@@ -38,6 +40,9 @@ export default function Desktop() {
       >
         Welcome to Terminal WebOS
       </div>
+
+      {/* Bottom Taskbar */}
+      <Taskbar />
     </div>
   );
 }
