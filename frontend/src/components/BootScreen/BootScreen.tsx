@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import "./BootScreen.css";
 
 const bootMessages = [
   "Initializing Kernel...",
@@ -7,7 +8,7 @@ const bootMessages = [
   "Checking Security Policies...",
   "Mounting Virtual File System...",
   "Loading Desktop Environment...",
-  "Terminal WebOS Ready."
+  "Terminal WebOS Ready.",
 ];
 
 export default function BootScreen() {
@@ -24,23 +25,15 @@ export default function BootScreen() {
   }, [line]);
 
   return (
-    <div
-      style={{
-        backgroundColor: "#000",
-        color: "#00ff66",
-        height: "100vh",
-        width: "100%",
-        fontFamily: "monospace",
-        padding: "30px",
-        fontSize: "18px",
-      }}
-    >
+    <div className="boot-screen">
       <h2>Terminal WebOS v1.0</h2>
 
       <br />
 
       {bootMessages.slice(0, line + 1).map((message, index) => (
-        <p key={index}>{">"} {message}</p>
+        <p key={index}>
+          {">"} {message}
+        </p>
       ))}
     </div>
   );
