@@ -1,1 +1,21 @@
+:root {
+  /* Colors */
+  --terminal-bg: #000000;
+  --terminal-panel: #111111;
+  --terminal-green: #00ff66;
+  --terminal-red: #ff5555;
 
+  /* Typography */
+  --terminal-font: monospace;
+
+  /* Borders */
+  --terminal-border: 1px solid var(--terminal-green);
+
+  /* Shadows */
+  --terminal-shadow: 0 0 20px rgba(0, 255, 102, 0.3);
+
+  /* Spacing */
+  --spacing-sm: 8px;
+  --spacing-md: 15px;
+  --spacing-lg: 30px;
+}
