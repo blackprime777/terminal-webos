@@ -19,7 +19,9 @@ export default function Desktop() {
       </div>
 
       {/* Applications */}
-      {terminalOpen && <Terminal />}
+      {terminalOpen && (
+        <Terminal onClose={() => setTerminalOpen(false)} />
+      )}
 
       {/* Bottom Taskbar */}
       <Taskbar onOpenTerminal={() => setTerminalOpen(true)} />
