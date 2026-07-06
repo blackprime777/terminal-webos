@@ -1,9 +1,10 @@
 .terminal-window {
   position: absolute;
-  top: 80px;
-  left: 80px;
-  width: 700px;
-  height: 450px;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(700px, 95vw);
+  height: min(450px, 75vh);
   background: #000;
   border: 1px solid #00ff66;
   color: #00ff66;
@@ -22,6 +23,7 @@
   justify-content: space-between;
   padding: 0 12px;
   font-weight: bold;
+  flex-shrink: 0;
 }
 
 .terminal-close {
@@ -36,4 +38,14 @@
   flex: 1;
   padding: 15px;
   overflow: auto;
+}
+
+@media (max-width: 768px) {
+  .terminal-window {
+    top: 55px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 95vw;
+    height: calc(100vh - 120px);
+  }
 }
