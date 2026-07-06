@@ -1,1 +1,32 @@
+.taskbar {
+  height: 50px;
+  width: 100%;
+  background: #111;
+  border-top: 1px solid #00ff66;
+  color: #00ff66;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px;
+  box-sizing: border-box;
+  font-family: monospace;
+}
 
+.taskbar-left {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.start-button {
+  background: #00ff66;
+  color: #000;
+  border: none;
+  padding: 6px 14px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.taskbar-time {
+  font-weight: bold;
+}
