@@ -1,48 +1,20 @@
 import { useState } from "react";
 import Taskbar from "../Taskbar/Taskbar";
 import Terminal from "../Terminal/Terminal";
+import "./Desktop.css";
 
 export default function Desktop() {
   const [terminalOpen, setTerminalOpen] = useState(false);
 
   return (
-    <div
-      style={{
-        backgroundColor: "#0b0b0b",
-        color: "#00ff66",
-        width: "100%",
-        height: "100vh",
-        fontFamily: "monospace",
-        display: "flex",
-        flexDirection: "column",
-        position: "relative",
-      }}
-    >
+    <div className="desktop">
       {/* Top Bar */}
-      <div
-        style={{
-          height: "45px",
-          background: "#111",
-          borderBottom: "1px solid #00ff66",
-          display: "flex",
-          alignItems: "center",
-          padding: "0 15px",
-          fontWeight: "bold",
-        }}
-      >
+      <div className="desktop-topbar">
         Terminal WebOS
       </div>
 
       {/* Desktop Area */}
-      <div
-        style={{
-          flex: 1,
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          fontSize: "28px",
-        }}
-      >
+      <div className="desktop-area">
         Welcome to Terminal WebOS
       </div>
 
