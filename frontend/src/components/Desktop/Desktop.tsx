@@ -50,21 +50,7 @@ export default function Desktop() {
       {terminalOpen && <Terminal />}
 
       {/* Bottom Taskbar */}
-      <Taskbar />
-
-      {/* Temporary button for testing */}
-      <button
-        onClick={() => setTerminalOpen(true)}
-        style={{
-          position: "absolute",
-          top: "60px",
-          right: "20px",
-          padding: "8px 12px",
-          cursor: "pointer",
-        }}
-      >
-        Open Terminal
-      </button>
+      <Taskbar onOpenTerminal={() => setTerminalOpen(true)} />
     </div>
   );
 }
