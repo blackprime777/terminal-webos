@@ -1,1 +1,30 @@
+.start-menu {
+  position: fixed;
+  bottom: 55px;
+  left: 15px;
+  width: 240px;
+  background: #111;
+  border: 1px solid #00ff66;
+  color: #00ff66;
+  font-family: monospace;
+  padding: 10px;
+  box-shadow: 0 0 15px rgba(0, 255, 102, 0.3);
+  box-sizing: border-box;
+}
 
+.start-menu-title {
+  margin-top: 0;
+  border-bottom: 1px solid #00ff66;
+  padding-bottom: 8px;
+}
+
+.start-menu-item {
+  padding: 8px 0;
+  cursor: pointer;
+}
+
+.start-menu-logout {
+  padding: 8px 0;
+  cursor: pointer;
+  color: #ff5555;
+}
