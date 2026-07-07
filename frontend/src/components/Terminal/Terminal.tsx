@@ -2,21 +2,36 @@ import "./Terminal.css";
 
 type TerminalProps = {
   onClose: () => void;
+  onMinimize: () => void;
 };
 
-export default function Terminal({ onClose }: TerminalProps) {
+export default function Terminal({
+  onClose,
+  onMinimize,
+}: TerminalProps) {
   return (
     <div className="terminal-window">
       {/* Title Bar */}
       <div className="terminal-titlebar">
         <span>Terminal</span>
 
-        <button
-          className="terminal-close"
-          onClick={onClose}
-        >
-          ✕
-        </button>
+        <div>
+          <button
+            className="terminal-close"
+            onClick={onMinimize}
+            title="Minimize"
+          >
+            🗕
+          </button>
+
+          <button
+            className="terminal-close"
+            onClick={onClose}
+            title="Close"
+          >
+            ✕
+          </button>
+        </div>
       </div>
 
       {/* Terminal Body */}
