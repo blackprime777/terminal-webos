@@ -14,8 +14,8 @@ export default function Desktop() {
   const [dashboardMinimized, setDashboardMinimized] =
     useState(false);
 
-  // Root Session (will be activated later from Terminal)
-  const [isRoot] = useState(false);
+  // Root Session
+  const [isRoot, setIsRoot] = useState(false);
 
   // ---------- Terminal ----------
   const openTerminal = () => {
@@ -30,6 +30,11 @@ export default function Desktop() {
 
   const minimizeTerminal = () => {
     setTerminalMinimized(true);
+  };
+
+  // Called when the Terminal executes the "root" command
+  const activateRoot = () => {
+    setIsRoot(true);
   };
 
   // ---------- Dashboard ----------
@@ -64,6 +69,7 @@ export default function Desktop() {
         <Terminal
           onClose={closeTerminal}
           onMinimize={minimizeTerminal}
+          onRootLogin={activateRoot}
         />
       )}
 
