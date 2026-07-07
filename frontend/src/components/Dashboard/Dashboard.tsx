@@ -13,6 +13,7 @@ export default function Dashboard({
 }: DashboardProps) {
   return (
     <div className="dashboard-window">
+      {/* Title Bar */}
       <div className="dashboard-titlebar">
         <span>Dashboard</span>
 
@@ -35,58 +36,51 @@ export default function Dashboard({
         </div>
       </div>
 
+      {/* Dashboard Body */}
       <div className="dashboard-body">
-        {!isRoot ? (
-          <>
-            <h2>Dashboard Locked</h2>
+        <div className="dashboard-card">
+          <strong>🟢 System Status</strong>
+          <p>ONLINE</p>
+        </div>
 
-            <p>
-              Run the following command inside Terminal:
-            </p>
+        <div className="dashboard-card">
+          <strong>💰 Wallet Balance</strong>
+          <p>$900.00</p>
+        </div>
 
-            <pre>$ root</pre>
-          </>
-        ) : (
-          <>
-            <h2>Root Dashboard</h2>
+        <div className="dashboard-card">
+          <strong>👛 Wallet Types</strong>
 
-            <div className="dashboard-card">
-              <strong>System Status</strong>
-              <p>🟢 ONLINE</p>
-            </div>
+          <ul>
+            <li>Bitcoin (BTC)</li>
+            <li>Ethereum (ETH)</li>
+            <li>Litecoin (LTC)</li>
+            <li>Monero (XMR)</li>
+            <li>Solana (SOL)</li>
+          </ul>
+        </div>
 
-            <div className="dashboard-card">
-              <strong>Wallet Balance</strong>
-              <p>$900.00</p>
-            </div>
+        <div className="dashboard-card">
+          <strong>🔐 Encrypted BTC Address</strong>
 
-            <div className="dashboard-card">
-              <strong>Wallet Types</strong>
+          {isRoot ? (
+            <>
+              <p>bc1*********************9x</p>
+              <small>Encryption unlocked.</small>
+            </>
+          ) : (
+            <>
+              <p>████████████████████████████</p>
+              <small>Run "root" inside Terminal to unlock.</small>
+            </>
+          )}
+        </div>
 
-              <ul>
-                <li>Bitcoin (BTC)</li>
-                <li>Ethereum (ETH)</li>
-                <li>Litecoin (LTC)</li>
-                <li>Monero (XMR)</li>
-                <li>Solana (SOL)</li>
-              </ul>
-            </div>
+        <div className="dashboard-card">
+          <strong>🛡 Root Session</strong>
 
-            <div className="dashboard-card">
-              <strong>Encrypted BTC Address</strong>
-
-              <p>
-                bc1*********************9x
-              </p>
-            </div>
-
-            <div className="dashboard-card">
-              <strong>Root Session</strong>
-
-              <p>ACTIVE</p>
-            </div>
-          </>
-        )}
+          <p>{isRoot ? "ACTIVE" : "INACTIVE"}</p>
+        </div>
       </div>
     </div>
   );
