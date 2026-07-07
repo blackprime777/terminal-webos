@@ -3,11 +3,13 @@ import "./StartMenu.css";
 type StartMenuProps = {
   isOpen: boolean;
   onOpenTerminal: () => void;
+  onOpenDashboard: () => void;
 };
 
 export default function StartMenu({
   isOpen,
   onOpenTerminal,
+  onOpenDashboard,
 }: StartMenuProps) {
   if (!isOpen) return null;
 
@@ -24,7 +26,10 @@ export default function StartMenu({
         🖥️ Terminal
       </div>
 
-      <div className="start-menu-item">
+      <div
+        className="start-menu-item"
+        onClick={onOpenDashboard}
+      >
         📊 Dashboard
       </div>
 
