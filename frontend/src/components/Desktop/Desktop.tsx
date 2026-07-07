@@ -5,6 +5,21 @@ import "./Desktop.css";
 
 export default function Desktop() {
   const [terminalOpen, setTerminalOpen] = useState(false);
+  const [terminalMinimized, setTerminalMinimized] = useState(false);
+
+  const openTerminal = () => {
+    setTerminalOpen(true);
+    setTerminalMinimized(false);
+  };
+
+  const closeTerminal = () => {
+    setTerminalOpen(false);
+    setTerminalMinimized(false);
+  };
+
+  const minimizeTerminal = () => {
+    setTerminalMinimized(true);
+  };
 
   return (
     <div className="desktop">
@@ -19,13 +34,16 @@ export default function Desktop() {
       </div>
 
       {/* Applications */}
-      {terminalOpen && (
-        <Terminal onClose={() => setTerminalOpen(false)} />
+      {terminalOpen && !terminalMinimized && (
+        <Terminal
+          onClose={closeTerminal}
+          onMinimize={minimizeTerminal}
+        />
       )}
 
       {/* Bottom Taskbar */}
       <Taskbar
-        onOpenTerminal={() => setTerminalOpen(true)}
+        onOpenTerminal={openTerminal}
         terminalVisible={terminalOpen}
       />
     </div>
