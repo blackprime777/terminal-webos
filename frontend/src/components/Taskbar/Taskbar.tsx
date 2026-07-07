@@ -4,9 +4,13 @@ import "./Taskbar.css";
 
 type TaskbarProps = {
   onOpenTerminal: () => void;
+  terminalVisible: boolean;
 };
 
-export default function Taskbar({ onOpenTerminal }: TaskbarProps) {
+export default function Taskbar({
+  onOpenTerminal,
+  terminalVisible,
+}: TaskbarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const currentTime = new Date().toLocaleTimeString([], {
@@ -33,7 +37,15 @@ export default function Taskbar({ onOpenTerminal }: TaskbarProps) {
             Start
           </button>
 
-          <span>Terminal</span>
+          {terminalVisible && (
+            <span
+              style={{ cursor: "pointer" }}
+              onClick={onOpenTerminal}
+            >
+              Terminal
+            </span>
+          )}
+
           <span>Dashboard</span>
           <span>Settings</span>
         </div>
