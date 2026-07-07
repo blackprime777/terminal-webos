@@ -24,7 +24,10 @@ export default function Desktop() {
       )}
 
       {/* Bottom Taskbar */}
-      <Taskbar onOpenTerminal={() => setTerminalOpen(true)} />
+      <Taskbar
+        onOpenTerminal={() => setTerminalOpen(true)}
+        terminalVisible={terminalOpen}
+      />
     </div>
   );
 }
