@@ -4,12 +4,16 @@ import "./Taskbar.css";
 
 type TaskbarProps = {
   onOpenTerminal: () => void;
+  onOpenDashboard: () => void;
   terminalVisible: boolean;
+  dashboardVisible: boolean;
 };
 
 export default function Taskbar({
   onOpenTerminal,
+  onOpenDashboard,
   terminalVisible,
+  dashboardVisible,
 }: TaskbarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -24,6 +28,10 @@ export default function Taskbar({
         isOpen={menuOpen}
         onOpenTerminal={() => {
           onOpenTerminal();
+          setMenuOpen(false);
+        }}
+        onOpenDashboard={() => {
+          onOpenDashboard();
           setMenuOpen(false);
         }}
       />
@@ -42,12 +50,20 @@ export default function Taskbar({
               style={{ cursor: "pointer" }}
               onClick={onOpenTerminal}
             >
-              Terminal
+              🖥 Terminal
             </span>
           )}
 
-          <span>Dashboard</span>
-          <span>Settings</span>
+          {dashboardVisible && (
+            <span
+              style={{ cursor: "pointer" }}
+              onClick={onOpenDashboard}
+            >
+              📊 Dashboard
+            </span>
+          )}
+
+          <span>⚙️ Settings</span>
         </div>
 
         <div className="taskbar-time">{currentTime}</div>
