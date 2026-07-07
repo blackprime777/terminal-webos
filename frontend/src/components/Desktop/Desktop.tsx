@@ -1,12 +1,23 @@
 import { useState } from "react";
 import Taskbar from "../Taskbar/Taskbar";
 import Terminal from "../Terminal/Terminal";
+import Dashboard from "../Dashboard/Dashboard";
 import "./Desktop.css";
 
 export default function Desktop() {
+  // Terminal
   const [terminalOpen, setTerminalOpen] = useState(false);
   const [terminalMinimized, setTerminalMinimized] = useState(false);
 
+  // Dashboard
+  const [dashboardOpen, setDashboardOpen] = useState(false);
+  const [dashboardMinimized, setDashboardMinimized] =
+    useState(false);
+
+  // Root Session (will be activated later from Terminal)
+  const [isRoot] = useState(false);
+
+  // ---------- Terminal ----------
   const openTerminal = () => {
     setTerminalOpen(true);
     setTerminalMinimized(false);
@@ -21,6 +32,21 @@ export default function Desktop() {
     setTerminalMinimized(true);
   };
 
+  // ---------- Dashboard ----------
+  const openDashboard = () => {
+    setDashboardOpen(true);
+    setDashboardMinimized(false);
+  };
+
+  const closeDashboard = () => {
+    setDashboardOpen(false);
+    setDashboardMinimized(false);
+  };
+
+  const minimizeDashboard = () => {
+    setDashboardMinimized(true);
+  };
+
   return (
     <div className="desktop">
       {/* Top Bar */}
@@ -33,7 +59,7 @@ export default function Desktop() {
         Welcome to Terminal WebOS
       </div>
 
-      {/* Applications */}
+      {/* Terminal */}
       {terminalOpen && !terminalMinimized && (
         <Terminal
           onClose={closeTerminal}
@@ -41,10 +67,21 @@ export default function Desktop() {
         />
       )}
 
-      {/* Bottom Taskbar */}
+      {/* Dashboard */}
+      {dashboardOpen && !dashboardMinimized && (
+        <Dashboard
+          isRoot={isRoot}
+          onClose={closeDashboard}
+          onMinimize={minimizeDashboard}
+        />
+      )}
+
+      {/* Taskbar */}
       <Taskbar
         onOpenTerminal={openTerminal}
+        onOpenDashboard={openDashboard}
         terminalVisible={terminalOpen}
+        dashboardVisible={dashboardOpen}
       />
     </div>
   );
