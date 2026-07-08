@@ -1,4 +1,6 @@
+import { useState } from "react";
 import "./Terminal.css";
+import { executeCommand } from "./commands";
 
 type TerminalProps = {
   onClose: () => void;
@@ -11,6 +13,34 @@ export default function Terminal({
   onMinimize,
   onRootLogin,
 }: TerminalProps) {
+  const [history, setHistory] = useState<string[]>([
+    "Terminal WebOS v1.0",
+    "Welcome.",
+    "Type 'ls' to view available commands.",
+    "Type 'root' to unlock Dashboard.",
+    "",
+  ]);
+
+  const [command, setCommand] = useState("");
+const runCommand = () => {
+  const input = command.trim();
+
+  if (!input) return;
+
+  const result = executeCommand(input);
+
+  setHistory((prev) => [
+    ...prev,
+    `$ ${input}`,
+    ...result.output,
+  ]);
+
+  if (result.root) {
+    onRootLogin();
+  }
+
+  setCommand("");
+};
   return (
     <div className="terminal-window">
       {/* Title Bar */}
@@ -37,11 +67,28 @@ export default function Terminal({
       </div>
 
       {/* Terminal Body */}
-      <div className="terminal-body">
-        <p>Terminal WebOS v1.0</p>
-        <p>Welcome.</p>
-        <p>$ _</p>
-      </div>
+  <div className="terminal-body">
+  {history.map((line, index) => (
+    <p key={index}>{line}</p>
+  ))}
+
+  <div className="terminal-input">
+    <span>$ </span>
+
+    <input
+  type="text"
+  value={command}
+  onChange={(e) => setCommand(e.target.value)}
+  onKeyDown={(e) => {
+    if (e.key === "Enter") {
+      runCommand();
+    }
+  }}
+  autoFocus
+/>
+  </div>
+</div>
     </div>
   );
 }
+
