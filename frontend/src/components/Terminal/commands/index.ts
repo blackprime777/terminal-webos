@@ -1,5 +1,6 @@
 import { runRoot } from "./root";
 import { runLs } from "./ls";
+import { runZara } from "./zara";
 
 export type CommandResult = {
   handled: boolean;
@@ -24,6 +25,15 @@ export function executeCommand(command: string): CommandResult {
     return {
       handled: true,
       output: ls.output,
+    };
+  }
+
+  const zara = runZara(command);
+
+  if (zara.handled) {
+    return {
+      handled: true,
+      output: zara.output,
     };
   }
 
