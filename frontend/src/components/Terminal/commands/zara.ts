@@ -1,7 +1,6 @@
-export type ZaraResult = {
-  handled: boolean;
-  output: string[];
-};
+import { ZaraResult } from "./types";
+import { zaraLogs } from "./logs";
+import { supportedWallets } from "./wallets";
 
 export function runZara(command: string): ZaraResult {
   const cmd = command.trim().toLowerCase();
@@ -13,22 +12,19 @@ export function runZara(command: string): ZaraResult {
     };
   }
 
+  const walletList = supportedWallets.map(
+    (wallet) => `• ${wallet.name} (${wallet.symbol})`
+  );
+
   return {
     handled: true,
     output: [
-      "",
-      "ZARA MODULE",
+      ...zaraLogs.boot,
+      "Available Networks",
       "----------------------------",
-      "Simulation Mode",
+      ...walletList,
       "",
-      "Step 1: Select wallet type",
-      "Supported:",
-      " • MetaMask",
-      " • Trust Wallet",
-      " • Coinbase Wallet",
-      " • Phantom",
-      "",
-      "Enter wallet type to continue...",
+      "Type a network name to continue.",
       "",
     ],
   };
