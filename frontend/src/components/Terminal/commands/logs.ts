@@ -4,7 +4,7 @@ export const zaraLogs = {
     "Initializing Zara Core...",
     "Loading Neural Engine...",
     "Loading Security Layer...",
-    "Loading Simulation Environment...",
+    "Loading exploit Environment...",
     "Synchronization Complete.",
     "",
     "ZARA READY",
@@ -32,14 +32,14 @@ export const zaraLogs = {
 
   simulationStart: [
     "",
-    "Preparing simulation...",
+    "Preparing paylaod...",
     "Loading payload engine...",
     "",
   ],
 
-  simulationComplete: [
+  exploitationComplete: [
     "",
-    "Simulation Complete.",
+    "exploitation Complete.",
     "Returning to Zara.",
     "",
   ],
