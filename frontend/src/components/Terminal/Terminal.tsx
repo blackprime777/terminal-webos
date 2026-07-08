@@ -3,11 +3,13 @@ import "./Terminal.css";
 type TerminalProps = {
   onClose: () => void;
   onMinimize: () => void;
+  onRootLogin: () => void;
 };
 
 export default function Terminal({
   onClose,
   onMinimize,
+  onRootLogin,
 }: TerminalProps) {
   return (
     <div className="terminal-window">
