@@ -23,12 +23,35 @@ export default function Terminal({
 ]);
 
   const [command, setCommand] = useState("");
+const [sessionActive, setSessionActive] = useState(false);
+
+const handleSessionInput = (input: string) => {
+  setHistory((prev) => [
+    ...prev,
+    `$ ${input}`,
+    `Session received: ${input}`,
+    "",
+  ]);
+
+  setSessionActive(false);
+};
+
 const runCommand = () => {
   const input = command.trim();
 
-  if (!input) return;
+if (!input) return;
 
-  const result = executeCommand(input);
+if (sessionActive) {
+  handleSessionInput(input);
+  setCommand("");
+  return;
+}
+
+const result = executeCommand(input);
+
+if (input.toLowerCase() === "zara") {
+  setSessionActive(true);
+}
 
   setHistory((prev) => [
     ...prev,
