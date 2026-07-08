@@ -30,7 +30,7 @@ export const zaraLogs = {
     "",
   ],
 
-  simulationStart: [
+  zer0oneStart: [
     "",
     "Preparing paylaod...",
     "Loading payload engine...",
