@@ -14,12 +14,13 @@ export default function Terminal({
   onRootLogin,
 }: TerminalProps) {
   const [history, setHistory] = useState<string[]>([
-    "Terminal WebOS v1.0",
-    "Welcome.",
-    "Type 'ls' to view available commands.",
-    "Type 'root' to unlock Dashboard.",
-    "",
-  ]);
+  "Terminal WebOS v1.0",
+  "Welcome.",
+  "Type 'ls' to view available commands.",
+  "Type 'root' to unlock Dashboard.",
+  "Type 'zara' to launch Zara.",
+  "",
+]);
 
   const [command, setCommand] = useState("");
 const runCommand = () => {
