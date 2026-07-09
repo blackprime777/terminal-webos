@@ -4,6 +4,8 @@ import { executeCommand } from "./commands";
 import { runZara } from "./commands/zara";
 import { getWalletName } from "./commands/wallets";
 import { zaraLogs } from "./commands/logs";
+import { payloadStages } from "./commands/payloads";
+import { runSimulation } from "./commands/timers";
 
 type TerminalProps = {
   onClose: () => void;
@@ -42,6 +44,7 @@ export default function Terminal({
       return;
     }
 
+    // Initial messages
     setHistory((prev) => [
       ...prev,
       `$ ${input}`,
@@ -49,12 +52,30 @@ export default function Terminal({
       "",
       ...zaraLogs.boot,
       `✅ Connected to ${walletName} (${network.toUpperCase()})`,
-      "Simulation started successfully.",
-      "Type 'help' for available commands.",
+      "Preparing zer0one payload...",
       "",
     ]);
 
     setSessionActive(false);
+
+    // Run full animated simulation
+    runSimulation(
+      payloadStages,
+      4500, // total time in milliseconds - adjust if too fast/slow
+      (step) => {
+        setHistory((prev) => [...prev, `${step.progress}% ${step.message}`]);
+      },
+      () => {
+        setHistory((prev) => [
+          ...prev,
+          "",
+          "✅ zer0one Complete.",
+          "Exploitation successful on target network.",
+          "Zara session fully active.",
+          "",
+        ]);
+      }
+    );
   };
 
   const runCommand = () => {
@@ -69,7 +90,6 @@ export default function Terminal({
 
     const result = executeCommand(input);
 
-    // Improved Zara launch
     if (input.toLowerCase() === "zara") {
       const zaraResult = runZara(input);
       setHistory((prev) => [...prev, `$ ${input}`, ...zaraResult.output]);
@@ -93,30 +113,14 @@ export default function Terminal({
 
   return (
     <div className="terminal-window">
-      {/* Title Bar */}
       <div className="terminal-titlebar">
         <span>Terminal</span>
-
         <div>
-          <button
-            className="terminal-close"
-            onClick={onMinimize}
-            title="Minimize"
-          >
-            🗕
-          </button>
-
-          <button
-            className="terminal-close"
-            onClick={onClose}
-            title="Close"
-          >
-            ✕
-          </button>
+          <button className="terminal-close" onClick={onMinimize} title="Minimize">🗕</button>
+          <button className="terminal-close" onClick={onClose} title="Close">✕</button>
         </div>
       </div>
 
-      {/* Terminal Body */}
       <div className="terminal-body">
         {history.map((line, index) => (
           <p key={index}>{line}</p>
