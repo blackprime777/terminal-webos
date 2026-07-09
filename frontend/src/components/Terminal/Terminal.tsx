@@ -1,9 +1,9 @@
 import { useState } from "react";
 import "./Terminal.css";
 import { executeCommand } from "./commands";
-import { runZara } from "./zara";           // add this
-import { getWalletName } from "./wallets";  // add this
-import { zaraLogs } from "./logs";          // add this
+import { runZara } from "./commands/zara";
+import { getWalletName } from "./commands/wallets";
+import { zaraLogs } from "./commands/logs";
 
 type TerminalProps = {
   onClose: () => void;
