@@ -38,40 +38,72 @@ export default function Terminal({
       setHistory((prev) => [
         ...prev,
         `$ ${input}`,
-        "❌ Unknown network. Please use: Solana, BTC, ETH, or XMR",
+        "❌ Unknown network.",
         "",
       ]);
       return;
     }
 
-    // Initial messages
     setHistory((prev) => [
       ...prev,
       `$ ${input}`,
       `Session received: ${network}`,
       "",
       ...zaraLogs.boot,
-      `✅ Connected to ${walletName} (${network.toUpperCase()})`,
-      "Preparing zer0one payload...",
+      `✅ Connected to ${walletName}`,
+      "Launching zer0one payload...",
       "",
     ]);
 
     setSessionActive(false);
 
-    // Run full animated simulation
+    // ASCII Animation + Progress
+    const asciiFrames = [
+      " [  ZARA CORE v1.0  ] ",
+      " [■□□□□] Connecting... ",
+      " [■■□□□] Loading Neural ",
+      " [■■■□□] Breaching Net  ",
+      " [■■■■□] Injecting..... ",
+      " [■■■■■] EXPLOIT ACTIVE ",
+    ];
+
+    let frameIndex = 0;
+    const asciiInterval = setInterval(() => {
+      if (frameIndex < asciiFrames.length) {
+        setHistory((prev) => [...prev, asciiFrames[frameIndex]]);
+        frameIndex++;
+      } else {
+        clearInterval(asciiInterval);
+      }
+    }, 600);
+
+    // Parallel progress simulation
     runSimulation(
       payloadStages,
-      4500, // total time in milliseconds - adjust if too fast/slow
+      14000,
       (step) => {
-        setHistory((prev) => [...prev, `${step.progress}% ${step.message}`]);
+        setHistory((prev) => [...prev, `> ${step.progress}% ${step.message}`]);
       },
       () => {
+        const zaraArt = `
+   .-""""""-.
+ .'          '.
+(    Z A R A    )
+ '.          .'
+   '-......-'
+     /  |  \\
+    /___|___\\
+   AI CYBER CORE
+        `;
+
         setHistory((prev) => [
           ...prev,
           "",
-          "✅ zer0one Complete.",
-          "Exploitation successful on target network.",
-          "Zara session fully active.",
+          zaraArt,
+          "",
+          "🎉 EXPLOITATION SUCCESSFUL",
+          `Target: ${walletName}`,
+          "Zara AI Core fully active.",
           "",
         ]);
       }
