@@ -29,85 +29,102 @@ export default function Terminal({
 
   const [command, setCommand] = useState("");
   const [sessionActive, setSessionActive] = useState(false);
+  const [zaraStage, setZaraStage] = useState<"idle" | "network" | "address" | "key" | "complete">("idle");
 
   const handleSessionInput = (input: string) => {
-    const network = input.trim();
-    const walletName = getWalletName(network);
+    const trimmed = input.trim();
 
-    if (!walletName) {
+    // Network selection
+    if (zaraStage === "network") {
+      const walletName = getWalletName(trimmed);
+      if (!walletName) {
+        setHistory((prev) => [...prev, `$ ${trimmed}`, "❌ Unknown network. Try BTC, SOL, etc."]);
+        return;
+      }
+
       setHistory((prev) => [
         ...prev,
-        `$ ${input}`,
-        "❌ Unknown network.",
+        `$ ${trimmed}`,
+        `Session received: ${trimmed}`,
+        "",
+        ...zaraLogs.boot,
+        `✅ Connected to ${walletName}`,
+        "",
+        "Enter your BTC wallet address:",
         "",
       ]);
+      setZaraStage("address");
       return;
     }
 
-    setHistory((prev) => [
-      ...prev,
-      `$ ${input}`,
-      `Session received: ${network}`,
-      "",
-      ...zaraLogs.boot,
-      `✅ Connected to ${walletName}`,
-      "Launching zer0one payload...",
-      "",
-    ]);
+    // BTC Address stage
+    if (zaraStage === "address") {
+      setHistory((prev) => [
+        ...prev,
+        `$ ${trimmed}`,
+        "BTC Address received. Validating...",
+        "",
+        "Enter licensed key to unlock full module:",
+        "",
+      ]);
+      setZaraStage("key");
+      return;
+    }
 
-    setSessionActive(false);
-
-    // ASCII Animation + Progress
-    const asciiFrames = [
-      " [  ZARA CORE v1.0  ] ",
-      " [■□□□□] Connecting... ",
-      " [■■□□□] Loading Neural ",
-      " [■■■□□] Breaching Net  ",
-      " [■■■■□] Injecting..... ",
-      " [■■■■■] EXPLOIT ACTIVE ",
-    ];
-
-    let frameIndex = 0;
-    const asciiInterval = setInterval(() => {
-      if (frameIndex < asciiFrames.length) {
-        setHistory((prev) => [...prev, asciiFrames[frameIndex]]);
-        frameIndex++;
-      } else {
-        clearInterval(asciiInterval);
-      }
-    }, 600);
-
-    // Parallel progress simulation
-    runSimulation(
-      payloadStages,
-      14000,
-      (step) => {
-        setHistory((prev) => [...prev, `> ${step.progress}% ${step.message}`]);
-      },
-      () => {
-        const zaraArt = `
-   .-""""""-.
- .'          '.
-(    Z A R A    )
- '.          .'
-   '-......-'
-     /  |  \\
-    /___|___\\
-   AI CYBER CORE
-        `;
-
+    // License Key stage
+    if (zaraStage === "key") {
+      if (trimmed === "jpc0p514") {
         setHistory((prev) => [
           ...prev,
+          `$ ${trimmed}`,
+          "✅ Triangle verified.",
           "",
-          zaraArt,
+          "wallet plugin = Y2l0eSBhZGQgdHJ1Y2sgaG9vZCBwb2VtIHZhc3Qgc3R1ZGVudCByb21hbmNlIHJlbWluZCBjb21wYW55IGV4aXQga2l3aQ==",
           "",
-          "🎉 EXPLOITATION SUCCESSFUL",
-          `Target: ${walletName}`,
-          "Zara AI Core fully active.",
+          "Type 'root' to access dashboard",
           "",
         ]);
+        setZaraStage("complete");
+      } else {
+        setHistory((prev) => [...prev, `$ ${trimmed}`, "❌ Invalid license key."]);
       }
-    );
+      return;
+    }
+
+    // Initial network selection after zara
+    const walletName = getWalletName(trimmed);
+    if (walletName) {
+      setHistory((prev) => [
+        ...prev,
+        `$ ${trimmed}`,
+        `Session received: ${trimmed}`,
+        "",
+        ...zaraLogs.boot,
+        `✅ Connected to ${walletName}`,
+        "Starting long-term zer0one payload (3 minutes)...",
+        "",
+      ]);
+
+      // 3 minute simulation
+      runSimulation(
+        payloadStages,
+        180000, // 3 minutes
+        (step) => {
+          setHistory((prev) => [...prev, `> ${step.progress}% ${step.message}`]);
+        },
+        () => {
+          setHistory((prev) => [
+            ...prev,
+            "",
+            "Payload stabilization complete.",
+            "Enter BTC wallet address to continue.",
+            "",
+          ]);
+          setZaraStage("address");
+        }
+      );
+      return;
+    }
   };
 
   const runCommand = () => {
@@ -126,15 +143,12 @@ export default function Terminal({
       const zaraResult = runZara(input);
       setHistory((prev) => [...prev, `$ ${input}`, ...zaraResult.output]);
       setSessionActive(true);
+      setZaraStage("network");
       setCommand("");
       return;
     }
 
-    setHistory((prev) => [
-      ...prev,
-      `$ ${input}`,
-      ...result.output,
-    ]);
+    setHistory((prev) => [...prev, `$ ${input}`, ...result.output]);
 
     if (result.root) {
       onRootLogin();
