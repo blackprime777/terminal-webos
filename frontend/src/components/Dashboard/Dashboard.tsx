@@ -45,7 +45,7 @@ export default function Dashboard({
 
         <div className="dashboard-card">
           <strong>💰 Wallet Balance</strong>
-          <p>$5.00</p>
+          <p>$100.00</p>
         </div>
 
         <div className="dashboard-card">
